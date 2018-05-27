@@ -1,0 +1,10 @@
+/home/zoheir/Desktop/al-project/bin/Debug/netcoreapp2.0/al-project.deps.json
+/home/zoheir/Desktop/al-project/bin/Debug/netcoreapp2.0/al-project.runtimeconfig.json
+/home/zoheir/Desktop/al-project/bin/Debug/netcoreapp2.0/al-project.runtimeconfig.dev.json
+/home/zoheir/Desktop/al-project/bin/Debug/netcoreapp2.0/al-project.dll
+/home/zoheir/Desktop/al-project/bin/Debug/netcoreapp2.0/al-project.pdb
+/home/zoheir/Desktop/al-project/obj/Debug/netcoreapp2.0/al-project.csproj.CoreCompileInputs.cache
+/home/zoheir/Desktop/al-project/obj/Debug/netcoreapp2.0/al-project.AssemblyInfoInputs.cache
+/home/zoheir/Desktop/al-project/obj/Debug/netcoreapp2.0/al-project.AssemblyInfo.cs
+/home/zoheir/Desktop/al-project/obj/Debug/netcoreapp2.0/al-project.dll
+/home/zoheir/Desktop/al-project/obj/Debug/netcoreapp2.0/al-project.pdb
