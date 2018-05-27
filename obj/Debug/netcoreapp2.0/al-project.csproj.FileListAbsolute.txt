@@ -8,3 +8,4 @@
 /home/zoheir/Desktop/al-project/obj/Debug/netcoreapp2.0/al-project.AssemblyInfo.cs
 /home/zoheir/Desktop/al-project/obj/Debug/netcoreapp2.0/al-project.dll
 /home/zoheir/Desktop/al-project/obj/Debug/netcoreapp2.0/al-project.pdb
+/home/zoheir/Desktop/al-project/obj/Debug/netcoreapp2.0/al-project.csprojResolveAssemblyReference.cache
