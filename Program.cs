@@ -23,6 +23,8 @@ namespace al_project
 
             print(sudoku);
 
+            
+
         }
 
         static void print(int [,] arr)
