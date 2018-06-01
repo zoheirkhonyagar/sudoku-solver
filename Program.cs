@@ -160,6 +160,32 @@ namespace al_project
                             }
                         }
 
+                        //for environment of a block
+                        int [] tmpArr = new int[arr.GetLength(0)];
+                        for (int k = 0; k < tmpArr.Length; k++)
+                        {
+                            tmpArr[k] = (k+1) * (tmpArr.Length - 1);
+                        }
+                        int x = (i / arr.GetLength(0)) * arr.GetLength(0);
+                        int y = (j / arr.GetLength(0)) * arr.GetLength(0);
+                        for (int k = (x * arr.GetLength(0)); k < tmpArr[x]; k++)
+                        {
+                            for (int p = (y * arr.GetLength(0)); p < tmpArr[y]; p++)
+                            {
+                                Newptr = tmp;
+                                while (Newptr.next != null)
+                                {
+                                    if (Convert.ToInt32(Newptr.data) == Convert.ToInt32(arr[k, p].data))
+                                    {
+                                        Newptr.check = true;
+                                        break;
+                                    }
+                                    Newptr = Newptr.next;
+                                }
+                            }
+                        }
+
+
                         //for insert values
                         ExtraNode tmpPtr = tmp;
                         arr[i, j].values = new Node();
