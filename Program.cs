@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
 
 namespace al_project
 {
@@ -12,6 +13,7 @@ namespace al_project
             StreamReader reader = new StreamReader(path);
 
             int count = Convert.ToInt32(reader.ReadLine());
+            int tmpCount = count;
             
             reader.Close();
             
@@ -23,9 +25,8 @@ namespace al_project
 
             print(sudoku);
 
-            addValues(ref sudoku);
+            addValues(ref sudoku , (tmpCount));
 
-            Console.ReadLine();
 
         }
 
@@ -77,17 +78,17 @@ namespace al_project
         }
 
         
-        static void addValues(ref CustomNode [,] arr)
+        static void addValues(ref CustomNode [,] arr , int count)
         {
             //this ExtraNode is tmp for check values in rows and columns
-            ExtraNode tmp = new ExtraNode();
-            ExtraNode ptr = tmp;
+            List<int> tmp = new List<int>();
+            //ExtraNode tmp = new ExtraNode();
+            // ExtraNode ptr = tmp;
             for (int i = 1; i <= arr.GetLength(0); i++)
             {
-                ptr.data = i;
-                ptr.next = new ExtraNode();
-                ptr = ptr.next;
+                tmp.Add(i);
             }
+            
 
             for (int i = 0; i < arr.GetLength(0); i++)
             {
@@ -97,34 +98,22 @@ namespace al_project
                     
                     if (Convert.ToInt32(arr[i, j].data) == 0)
                     {
-                        ExtraNode Newptr;
+                        //ExtraNode Newptr;
                         //for top
                         for (int k = i-1; k >= 0; k--)
                         {
-                            Newptr = tmp;
-                            while (Newptr.next != null)
+                            if (tmp.Contains(Convert.ToInt32(arr[k, j].data)))
                             {
-                                if (Convert.ToInt32(Newptr.data) == Convert.ToInt32(arr[k, j].data))
-                                {
-                                    Newptr.check = true;
-                                    break;
-                                }
-                                Newptr = Newptr.next;
+                                tmp.Remove(Convert.ToInt32(arr[k, j].data));
                             }
                         }
 
                         //for right
                         for (int k = j + 1; k <= arr.GetLength(0) - 1 ; k++)
                         {
-                            Newptr = tmp;
-                            while (Newptr.next != null)
+                            if (tmp.Contains(Convert.ToInt32(arr[i, k].data)))
                             {
-                                if (Convert.ToInt32(Newptr.data) == Convert.ToInt32(arr[i, k].data))
-                                {
-                                    Newptr.check = true;
-                                    break;
-                                }
-                                Newptr = Newptr.next;
+                                tmp.Remove(Convert.ToInt32(arr[i, k].data));
                             }
                         }
 
@@ -132,15 +121,9 @@ namespace al_project
                         //for bottom
                         for (int k = i + 1; k <= arr.GetLength(0) - 1; k++)
                         {
-                            Newptr = tmp;
-                            while (Newptr.next != null)
+                            if (tmp.Contains(Convert.ToInt32(arr[k, j].data)))
                             {
-                                if (Convert.ToInt32(Newptr.data) == Convert.ToInt32(arr[k, j].data))
-                                {
-                                    Newptr.check = true;
-                                    break;
-                                }
-                                Newptr = Newptr.next;
+                                tmp.Remove(Convert.ToInt32(arr[k, j].data));
                             }
                         }
 
@@ -148,65 +131,39 @@ namespace al_project
                         //for left
                         for (int k = j - 1; k >= 0; k--)
                         {
-                            Newptr = tmp;
-                            while (Newptr.next != null)
+                            if (tmp.Contains(Convert.ToInt32(arr[i, k].data)))
                             {
-                                if (Convert.ToInt32(Newptr.data) == Convert.ToInt32(arr[i, k].data))
-                                {
-                                    Newptr.check = true;
-                                    break;
-                                }
-                                Newptr = Newptr.next;
+                                tmp.Remove(Convert.ToInt32(arr[i, k].data));
                             }
                         }
 
-                        //for environment of a block
-                        int [] tmpArr = new int[arr.GetLength(0)];
-                        for (int k = 0; k < tmpArr.Length; k++)
+                        // for environment of a block
+
+                        int x = (int)(i / count) * count;
+                        int y = (int)(j / count) * count;
+                        for (int k = x; k < x+count; k++)
                         {
-                            tmpArr[k] = (k+1) * (tmpArr.Length - 1);
-                        }
-                        int x = (i / arr.GetLength(0)) * arr.GetLength(0);
-                        int y = (j / arr.GetLength(0)) * arr.GetLength(0);
-                        for (int k = (x * arr.GetLength(0)); k < tmpArr[x]; k++)
-                        {
-                            for (int p = (y * arr.GetLength(0)); p < tmpArr[y]; p++)
+                            for (int p = y; p < y+count; p++)
                             {
-                                Newptr = tmp;
-                                while (Newptr.next != null)
+                                if (tmp.Contains(Convert.ToInt32(arr[k, p].data)))
                                 {
-                                    if (Convert.ToInt32(Newptr.data) == Convert.ToInt32(arr[k, p].data))
-                                    {
-                                        Newptr.check = true;
-                                        break;
-                                    }
-                                    Newptr = Newptr.next;
+                                    tmp.Remove(Convert.ToInt32(arr[k, p].data));
                                 }
                             }
                         }
 
 
                         //for insert values
-                        ExtraNode tmpPtr = tmp;
-                        arr[i, j].values = new Node();
-                        Node valuesPtr = arr[i, j].values;
-                        while (tmpPtr.next != null)
+                        foreach (int item in tmp)
                         {
-                            if (tmpPtr.check == false)
-                            {
-                                valuesPtr.data = tmpPtr.data;
-                                valuesPtr.next = new Node();
-                                valuesPtr = valuesPtr.next;
-                            }
-                            tmpPtr = tmpPtr.next;
+                            arr[i,j].values.Add(item);
                         }
 
                         //for reset ExtraNode tmp for check values in rows and columns
-                        ptr = tmp;
-                        for (int p = 1; p <= arr.GetLength(0); p++)
+                        tmp.Clear();
+                        for (int z = 1; z <= arr.GetLength(0); z++)
                         {
-                            ptr.check = false;
-                            ptr = ptr.next;
+                            tmp.Add(z);
                         }
 
                     }//end if block
